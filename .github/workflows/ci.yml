@@ -50,7 +50,7 @@ jobs:
       run: |
         echo "Waiting for MySQL..."
           for i in {1..20}; do
-            if mysqladmin ping -h 127.0.0.1 -utestuser -ptestpass --silent; then
+            if mysqladmin ping -h mysql -utestuser -ptestpass --silent; then
               echo "MySQL is ready!"
               break
             fi
