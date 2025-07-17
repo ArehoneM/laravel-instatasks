@@ -48,10 +48,16 @@ jobs:
 
     - name: Wait for MySQL
       run: |
-        timeout 60s bash -c 'until mysqladmin ping -h mysql -uuser -ppassword --silent;
-         do echo "Waiting for MySQL...";
-          sleep 5;
-           done'
+        echo "Waiting for MySQL..."
+          for i in {1..20}; do
+            if mysqladmin ping -h 127.0.0.1 -utestuser -ptestpass --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            echo "Waiting..."
+            sleep 3
+          done
+
         
     - name: Generate app key
       run: php artisan key:generate
